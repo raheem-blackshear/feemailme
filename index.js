@@ -21,5 +21,5 @@ app.get('/', (req, res) => {
 // If heroku assigns an environment variable for the port, use it; else, use 5000.
 const PORT = process.env.PORT || 5000;
 
-// app.listen(PORT);
+app.listen(PORT);
 // Specify the Node environment we want to use
