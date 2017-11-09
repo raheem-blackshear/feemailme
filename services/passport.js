@@ -36,28 +36,19 @@ passport.use(
       proxy: true
     },
     //The access token for a successfully authenticated login
-    (accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
 
-      // Query DB for 1 record matching google profile.id
-      User.findOne({ googleId: profile.id })
-        // Actions to perform on the promise returned by the DB
-        .then( (existingUser) => {
+      // If we have one record matching profile.id in DB, user is returning
+      const existingUser = await User.findOne({ googleId: profile.id });
+      if (existingUser) {
+        // Tell passport to resume authentication
+        done(null, existingUser);
+      }
 
-          // If we have a record matching profile.id in DB
-          if (existingUser) {
-            // Tell passport to resume the authentication process
-            done(null, existingUser);
-          }
-          else {
-            // User is new to the site
-            // Create new record (Model Instance)
-            new User({googleId: profile.id})
-              // Save new Model Instance to DB (otherwise it won't persist)
-              .save()
-              // Pass the newly-created user RETURNED BY THE DB back and resume authentication process
-              .then(user => done(null, user));
-          }
-        });
+      // Else, user is new to the site; create and save new Model Instance to DB
+      const user = await new User( {googleId: profile.id} ).save();
+      // Pass the newly-created user RETURNED BY THE DB back and resume authentication
+      done(null, user);
     }
   )
 );
