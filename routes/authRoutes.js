@@ -16,17 +16,24 @@ module.exports = (app) => {
   // Google OAth Callback Route Handler
   app.get('/auth/google/callback',
     // Exchange code for a user profile
-    passport.authenticate('google')
+    passport.authenticate('google'),
+
+    // Redirect logged-in user to dashboard
+    (req, res) => {
+      res.redirect('/surveys');
+    }
   );
 
-  app.get('/api/current_user', (req, res) => {
-    res.send(req.user);
-  });
+  app.get('/api/current_user',
+    (req, res) => {
+      res.send(req.user);
+    }
+  );
 
   app.get('/api/logout', (req, res) => {
     // Kill the id stored in the cookie at login so it's no longer logged in
     req.logout();
-    
-    res.send(req.user);
+    // Redirect logged-in user to dashboard
+    res.redirect('/');
   });
 };

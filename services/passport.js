@@ -26,6 +26,9 @@ passport.deserializeUser((id, done) => {
 });
 
 /* Declare Authentication Strategies */
+/*
+* [Documentation]{@link http://www.passportjs.org/docs}
+*/
 passport.use(
   new GoogleStrategy (
     {
@@ -46,7 +49,15 @@ passport.use(
       }
 
       // Else, user is new to the site; create and save new Model Instance to DB
-      const user = await new User( {googleId: profile.id} ).save();
+      console.log(profile.photos.value);
+      const user = await new User( {
+        googleId: profile.id,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
+        email: profile.emails[0].value,
+        profileImage: profile._json.image.url,
+        authProfile: {profile}
+      } ).save();
       // Pass the newly-created user RETURNED BY THE DB back and resume authentication
       done(null, user);
     }
