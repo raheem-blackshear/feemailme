@@ -42,23 +42,21 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
 
       // If we have one record matching profile.id in DB, user is returning
-      const existingUser = await User.findOne({ googleId: profile.id });
-      if (existingUser) {
-        // Tell passport to resume authentication
-        done(null, existingUser);
+      var user = await User.findOne({ googleId: profile.id });
+
+      // User is new to the site; create and save new Model Instance to DB
+      if (!user) {
+        user = await new User( {
+          googleId: profile.id,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          email: profile.emails[0].value,
+          profileImage: profile._json.image.url,
+          authProfile: {profile}
+        } ).save();
       }
 
-      // Else, user is new to the site; create and save new Model Instance to DB
-      console.log(profile.photos.value);
-      const user = await new User( {
-        googleId: profile.id,
-        firstName: profile.name.givenName,
-        lastName: profile.name.familyName,
-        email: profile.emails[0].value,
-        profileImage: profile._json.image.url,
-        authProfile: {profile}
-      } ).save();
-      // Pass the newly-created user RETURNED BY THE DB back and resume authentication
+      // Pass the existing or new user RETURNED BY THE DB back and resume authentication
       done(null, user);
     }
   )
