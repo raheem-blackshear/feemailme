@@ -32,6 +32,21 @@ mongoose.connect(keys.mongoUri);
 // Call function returned by authRoutes and pass it the app
 require('./routes/authRoutes')(app);
 
+// If running in prod
+if (process.env.NODE_ENV === 'production') {
+  // Make sure express serves up prod assets
+  // prod assets are in the client/build folder
+  app.use(express.static('client/build'));
+
+  // Make sure express serves up index.html file if it doesn't recognize route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, 'client', 'build', 'index.html')
+    );
+  });
+}
+
 /* Set Ports to Listen to */
 // If Heroku assigns an environment variable for the port, use it; else, use dev port (running locally).
 const DEV_PORT = 5000;
