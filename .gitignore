@@ -1,4 +1,4 @@
 _project_notes/*
-client/.env.*
+client/.env.development
 dev.js
 node_modules
