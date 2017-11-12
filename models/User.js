@@ -2,16 +2,25 @@ const mongoose = require('mongoose');
 // mongoose.Schema
 const { Schema } = mongoose;
 
-// TODO: Clean this up and determine which data I really want
-// Grabbing entire profile for the time being
+/*
+* Create app user schema and load it into mongoose.
+*/
 const userSchema = new Schema({
+  // Auth Profile Data
   googleId: String,
   firstName: String,
   lastName: String,
-  nickname: String,
   email: String,
   profileImage: String,
-  authProfile: Object
+  // TODO clean this up and determine which data I really want; grabbing entire profile in the interim.
+  authProfile: Object,
+
+  // User Data
+  nickname: String, // TODO implement
+  credits: {
+    type: Number,
+    default: 0
+  }
 });
 
 // Load schema into mongoose

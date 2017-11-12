@@ -1,6 +1,4 @@
-node_modules
-notes_project
-notes_react_redux
-notes_react_setup
-notes_redux_setup
+_project_notes/*
+client/.env.*
 dev.js
+node_modules

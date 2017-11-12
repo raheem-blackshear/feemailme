@@ -1,26 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Payments from './Payments';
+import Login from './Login';
+import Logout from './Logout';
+import Greeting from './Greeting';
+import Credits from './Credits';
+
 /*
-*
+* Header bar at the top of App
 */
 class Header extends Component {
-
-
   /*
-  *
+  * Render content corresponding to user state
   */
-  renderContent() {
+  renderUserContent() {
     switch (this.props.auth) {
+      // Determining whether logged in or not
       case null:
-        return 'Checking login status...';
+        return <li>'Checking login status...'</li>;
+      // User is not logged in
       case false:
-        return <a href="/auth/google">Log in with Google</a>;
+        return <li><Login /></li>;
+      // User is logged in
       default:
-        return <a href="/api/logout">Welcome, {this.props.auth.firstName}! &sdot; [Log out]</a>;
+        return [
+          <li key={Greeting}><Greeting
+            name={this.props.auth.firstName}
+           /></li>,
+          <li key={Payments}><Payments
+            email={this.props.auth.email}
+          /></li>,
+          <li key={Credits}><Credits
+            credits={this.props.auth.credits}
+          /></li>,
+          <li key={Logout}><Logout /></li>
+        ];
     }
   }
 
+  /*
+  * Render the full Header bar
+  */
   render() {
     return (
       <nav>
@@ -30,11 +51,8 @@ class Header extends Component {
             className='left brand-logo'
           >FeeMail</Link>
           <ul className='right'>
-            <li>
-              { this.renderContent() }
-            </li>
+              { this.renderUserContent() }
           </ul>
-
         </div>
       </nav>
     );

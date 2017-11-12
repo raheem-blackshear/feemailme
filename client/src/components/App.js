@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
-// Helpers that allow you to navigate around the DOM
-// BrowserRouter tells react how to behave; looks at current URL and changes the set of visible components. It expects AT MOST 1 child
-// Route is a react component for setting up rules between a route and a set of visible components
+/*
+* Helpers for navigating around the DOM
+*
+* BrowserRouter:
+*   - Tells React how to behave.
+*   - Expects AT MOST 1 child.
+*   - Looks at current URL and changes the set of visible components.
+*/
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 // Assign all action creators to 'actions'
 import * as actions from '../actions';
-
 import Header from './Header';
 import Landing from './Landing';
+
+// TODO implement remaining display Components
 const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>New Survey</h2>;
 
-
 class App extends Component {
+
+  /*
+  * Call Action Creator, which makes AJAX request for current_user.
+  * Once Express API resolves request, we automatically dispatch an action.
+  * Action is sent to Reducers in Redux Store.
+  */
   componentDidMount() {
-    // Call actioncreator, which makes AJAX request; once Express API resolves request, we automatically dispatch an action. Action is sent to Reducers in Redux Store.
     this.props.fetchUser();
   }
 
+  /*
+  * Display main page body.
+  */
   render() {
     return (
       <div className="container">
@@ -34,8 +47,7 @@ class App extends Component {
       </div>
     );
   };
-
-}
+};
 
 // Connect (Map State, action creators to wire up)
 // The actions passed in here are assigned to the App component as props
