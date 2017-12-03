@@ -5,9 +5,7 @@ import React from 'react';
 */
 const Login = () => {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <a href="/auth/google">Log in with Google</a>
-    </div>
+    <a className='btn login--google' href="/auth/google">Sign in with Google</a>
   );
 };
 // TODO Add marketing buttons

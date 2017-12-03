@@ -18,7 +18,7 @@ class Header extends Component {
     switch (this.props.auth) {
       // Determining whether logged in or not
       case null:
-        return <li>'Checking login status...'</li>;
+        return <li>Checking login status...</li>;
       // User is not logged in
       case false:
         return <li><Login /></li>;

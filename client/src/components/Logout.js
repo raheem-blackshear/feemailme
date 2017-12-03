@@ -5,8 +5,8 @@ import React from 'react';
 */
 const Logout = () => {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <a href="/api/logout">[Log out]</a>
+    <div>
+      <a className='btn' href="/api/logout">Log Out</a>
     </div>
   );
 };

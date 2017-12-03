@@ -9,6 +9,11 @@ nav {
   background-color: #1b94fa;
 }
 
+div {
+  margin: 0 12px;
+}
+
+/* Buttons */
 .btn {
   background-color: rgba(40, 44, 44, 1);
 }
@@ -17,6 +22,14 @@ nav {
   background-color: rgba(40, 44, 44, .8);
 }
 
-div {
-  margin: 0 12px;
+.login--google {
+  /* Button has text for accessibility, but actual text is transparent */
+  color: rgba(0, 0, 0, 0);
+  background-color: transparent;
+  /* The Google sign-in branding button has sign in with google written on it
+  * https://developers.google.com/identity/branding-guidelines
+  */
+  background-image: url( './images/btn_google_signin_light_normal_web.png' );
+  width: 191px;
+  height: 46px;
 }

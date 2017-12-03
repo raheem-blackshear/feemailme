@@ -2,6 +2,7 @@
 * Application Setup and Configuration
 *
 * NPM [Passport]{@link http://www.passportjs.org/docs} module
+* [Google Cloud Docu]{@link https://cloud.google.com/nodejs/getting-started/authenticate-users}
 */
 const passport = require('passport');
 const keys = require('../config/keys.js');

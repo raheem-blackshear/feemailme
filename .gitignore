@@ -1,4 +1,8 @@
-_project_notes/*
+# project
 client/.env.development
 dev.js
 node_modules
+
+# misc
+.DS_Store
+_project_notes/*

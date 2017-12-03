@@ -1,4 +1,5 @@
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -36,6 +37,7 @@ mongoose.connect(keys.mongoUri);
 /* Call function returned by route and pass it the app */
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 /*
 * Ensure Express serves up production assets in client/build folder when running in prod.
