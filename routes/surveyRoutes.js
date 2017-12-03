@@ -42,7 +42,11 @@ module.exports = (app) => {
         title,
         subject,
         body,
-        recipients: recipients.trim().split(new RegExp('[, ]+'))
+        recipients: recipients
+          .trim()
+          .split(/[, ]+/)
+          // Remove any empty string addresses in case of accidental leading/trailing comma
+          .filter( address => address.length )
           // Create an object with email property and assign it value of email address
           .map( (email) => ({ email })),
         _user: req.user.id,

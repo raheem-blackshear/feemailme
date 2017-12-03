@@ -12,7 +12,8 @@ export default (recipients) => {
 
   const invalidEmails = recipients.trim().split(/[, ]+/)
     // Only return values where validation RegEx is false
-    .filter( address => emailValidator.test(address) === false );
+    .filter( address => emailValidator.test(address) === false && address.length );
+    // && address.length ignores empty string in the event of a leading/trailing comma
 
   // If invalidEmails doesn't contain 0 invalid emails, error.
   if (invalidEmails.length) {
