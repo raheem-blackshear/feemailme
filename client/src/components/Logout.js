@@ -5,8 +5,11 @@ import React from 'react';
 */
 const Logout = () => {
   return (
-    <div>
-      <a className='btn' href="/api/logout">Log Out</a>
+    <div title='Click to log out'>
+      <a
+        className='btn blue lighten-2 waves-effect waves-light'
+        href='/api/logout'
+      >Log Out</a>
     </div>
   );
 };

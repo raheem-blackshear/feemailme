@@ -5,7 +5,7 @@ import React from 'react';
 */
 const Greeting = (props) => {
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div>
       Welcome&#44; {props.name}&#33;
     </div>
   );

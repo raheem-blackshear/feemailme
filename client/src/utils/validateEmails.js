@@ -19,6 +19,4 @@ export default (recipients) => {
   if (invalidEmails.length) {
     return `The following email addresses are invalid: ${invalidEmails.join(', ')}`;
   }
-
-  return true;
 };

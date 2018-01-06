@@ -1,31 +1,9 @@
-/* FIXME bc styling is gross rn */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
-
-nav {
-  background-color: #1b94fa;
-}
-
-div {
-  margin: 0 12px;
-}
+@import '~materialize-css/dist/css/materialize.min.css';
 
 /* Buttons */
-.btn {
-  background-color: rgba(40, 44, 44, 1);
-}
 
-.btn:hover {
-  background-color: rgba(40, 44, 44, .8);
-}
-
+/* The login button for Google */
 .login--google {
-  /* Button has text for accessibility, but actual text is transparent */
-  color: rgba(0, 0, 0, 0);
-  background-color: transparent;
   /* The Google sign-in branding button has sign in with google written on it
   * https://developers.google.com/identity/branding-guidelines
   */

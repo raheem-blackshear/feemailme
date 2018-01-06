@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 /* 'redux-form' Helpers:
-*   reduxForm tells redux-form it needs to control any forms inside this component, similar to 'connect'
+*   reduxForm tells redux-form it needs to control any forms inside this component, similar to 'connect'.
 *   Field renders any type of traditional HTML form element (requires some number of minimum props).
 */
 import { reduxForm, Field } from 'redux-form';
@@ -8,18 +8,7 @@ import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
 import _ from 'lodash';
-
-// NOTE: isRequired is overkill I wrote in the event that optional fields are added.
-const SURVEY_FIELDS = [
-  { name: 'title', label: 'Survey Title', isRequired: true,
-    description: 'The survey identifier in Dashboard.' },
-  { name: 'subject', label: 'Email Subject', isRequired: true,
-    description: 'The email survey subject line.' },
-  { name: 'body', label: 'Email Body', isRequired: true,
-    description: 'The email survey body.' },
-  { name: 'recipients', label: 'Recipient List', isRequired: true,
-    description: 'A comma or space-separated list of email addresses.'}
-];
+import formFields from './formFields';
 
 /*
 * Display a form for user to add input to.
@@ -27,20 +16,20 @@ const SURVEY_FIELDS = [
 */
 class SurveyForm extends Component {
   /*
-  * Renders all SurveyFields in SURVEY_FIELDS
+  * Renders all SurveyFields in formFields.
   * Uses lodash.map to create an array of custom redux-form fields
-  * for each field specified in SURVEY_FIELDS.
+  * for each field specified in formFields.
   */
   renderFields() {
-    // Iterate through SURVEY_FIELDS, create the field, map returns it in a new array
-    return _.map(SURVEY_FIELDS, ({ name, label, description, isRequired }) => {
+    // Iterate through formFields, create the field, map returns it in a new array
+    return _.map(formFields, ({ name, label, description, isRequired }) => {
         return (
-          <Field type="text" key={name}
-            name={name}
-            label={label}
-            component={SurveyField}
-            description={description}
-            isRequired={isRequired}
+          <Field type='text' key={name}
+            name={ name }
+            label={ label }
+            component={ SurveyField }
+            description={ description }
+            isRequired={ isRequired }
           />
         )
       }
@@ -50,20 +39,25 @@ class SurveyForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={ this.props.handleSubmit(
-          // A function handling form submissions
-          (values) => { console.log(values) }
-        ) }>
+        <h4 className='center'>Survey Fields</h4>
+        <form
+          onSubmit={
+            // A function handling form submissions
+            // reduxForm will handle passing on the values
+            this.props.handleSubmit( this.props.onSurveySubmit )
+            // Function is called w/o () so JS only calls it upon attempted submit
+          }>
           { this.renderFields() }
-          <Link className="btn left" type="cancel" to="/surveys">Cancel
-            <i className="material-icons right">cancel</i>
+          <Link className='left btn waves-effect waves-light blue lighten-2'
+            type='cancel' to='/surveys'>Cancel
+            <i className='material-icons right'>cancel</i>
           </Link>
-          <button className="btn right" type="submit">Continue
-            <i className="material-icons right">done</i>
+          <button className='right btn waves-effect waves-light blue lighten-2'
+            type='submit'>Continue
+            <i className='material-icons right'>done</i>
           </button>
         </form>
       </div>
-
     );
   }
 };
@@ -71,14 +65,14 @@ class SurveyForm extends Component {
 /*
 * @param {Object} values All the different values in a submitted form's fields.
 * @return {Object} If empty, redux-form assumes form's contents are valid.
-*   redux-form automaticall matches up titles to the fields rendered above.
+*   redux-form automatically matches up titles to the fields rendered above.
 */
 function validate(values) {
   const errors = {};
   if (values.recipients) {
-    errors.recipients = validateEmails(values.recipients);
+    errors.recipients = validateEmails(values.recipients || '');
   }
-  _.each(SURVEY_FIELDS, ( { name, label, isRequired } ) => {
+  _.each(formFields, ( { name, label, isRequired } ) => {
     // Check if field is required
     if (isRequired) {
       // If field is empty, or if field exists but is empty after being trimmed
@@ -88,12 +82,17 @@ function validate(values) {
     }
   });
 
-
-
   return errors;
 }
 
+/*
+* ReduxForm helper to initialize and configure the survey form.
+*/
 export default reduxForm({
+  // Field validation
   validate,
-  form: 'surveyForm'
+  // The namespace for ReduxForm to use
+  form: 'surveyForm',
+  // Keep survey values so they're still accessible in SurveyFormReview
+  destroyOnUnmount: false
 })(SurveyForm);

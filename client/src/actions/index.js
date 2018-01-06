@@ -37,3 +37,23 @@ export const handleToken = (token) =>
       payload: res.data
     });
   };
+
+/*
+* Action creator that submits the final survey to be mailed
+* @param {Object} values The user's form entries
+* @param {Object} history Provided by react-router, used to redirect after POST
+* {@link SurveyFormReview}
+*/
+export const submitSurvey = (values, history) =>
+  async (dispatch) => {
+    // POST user's form entries to back-end API
+    const res = await axios.post('/api/surveys', values);
+
+    // Route user away from survey after successful send
+    history.push('/surveys');
+
+    dispatch({
+      type: FETCH_USER,
+      payload: res.data
+    });
+  };
