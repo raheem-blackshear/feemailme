@@ -6,6 +6,7 @@ const keys = require('../../config/keys');
 */
 module.exports = (survey) => {
   // TODO FINISH ME
+  const pathPrefix = `${keys.surveyRedirectDomain}/api/surveys/${survey.id}`;
   return `
     <html>
       <body style="text-align: center;">
@@ -13,10 +14,10 @@ module.exports = (survey) => {
         <p>Please answer the following question:</p>
         <p>${survey.body}</p>
         <div>
-          <a href="${keys.surveyRedirectDomain}/api/surveys/submitted-response">Yes</a>
+          <a href="${pathPrefix}/yes">Yes</a>
         </div>
         <div>
-          <a href="${keys.surveyRedirectDomain}/api/surveys/submitted-response">No</a>
+          <a href="${pathPrefix}/no">No</a>
         </div>
       </body>
     </html>

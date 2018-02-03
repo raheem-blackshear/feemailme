@@ -2,6 +2,7 @@
 client/.env.development
 dev.js
 node_modules
+webhooks/*
 
 # misc
 .DS_Store
