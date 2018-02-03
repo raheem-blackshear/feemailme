@@ -19,7 +19,8 @@ const userSchema = new Schema({
   nickname: String, // TODO implement
   credits: {
     type: Number,
-    default: 0
+    // One free credit for demo purposes
+    default: 1
   }
 });
 
