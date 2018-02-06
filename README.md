@@ -14,4 +14,6 @@ This web application:
   - View their mailed surveys and responses.
 - Ensures survey responses are distinct (repeat responses from the same responder are not recorded).
 
+**Note: I did not optimize this project for mobile viewing; it looks best in a computer web browser.**
+
 The name is a cheesy pun since I'm cool like that. There are some additional features I might implement and some design polish is definitely needed.
