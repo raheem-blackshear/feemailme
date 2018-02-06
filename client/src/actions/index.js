@@ -5,7 +5,7 @@
 * for direct access to Dispatch Function.
 */
 import axios from 'axios';
-import { FETCH_USER } from './types.js';
+import { FETCH_USER, FETCH_SURVEYS } from './types.js';
 
 /*
 * Action Creator to make AJAX request to Express for currently logged-in user.
@@ -56,4 +56,16 @@ export const submitSurvey = (values, history) =>
       type: FETCH_USER,
       payload: res.data
     });
+  };
+
+/*
+* Action creator that fetches the list of surveys created by the logged-in user.
+* {@link surveyRoutes}
+* {@link surveysReducer}
+*/
+export const fetchSurveys = () =>
+  async (dispatch) => {
+    const res = await axios.get('/api/surveys');
+    // Array of surveys created by user (sans recipient list) returned by MongoDB
+    dispatch({ type: FETCH_SURVEYS, payload: res.data });
   };

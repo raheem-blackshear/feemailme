@@ -3,8 +3,9 @@
 * Naming this index.js is a convention enabling us to simply import the reducers directory.
 */
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
 import { reducer as formReducer } from 'redux-form';
+import authReducer from './authReducer';
+import surveysReducer from './surveysReducer';
 
 /*
 * [Documentation: combineReducers]{@link https://github.com/reactjs/redux/blob/master/docs/api/combineReducers.md}
@@ -19,5 +20,6 @@ export default combineReducers({
   * Manages form action creators, values, connecting to redux store, etc.
   * [Documentation: redux-form.reducer]{@link https://redux-form.com/7.2.0/docs/api/reducer.md/}
   */
-  form: formReducer
+  form: formReducer,
+  surveys: surveysReducer
 });

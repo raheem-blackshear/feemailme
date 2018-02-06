@@ -20,9 +20,12 @@ module.exports = (app) => {
   */
   app.get('/api/surveys',
     loginRequired,
-    (req, res) => {
-      res.send(req.user);
-      res.redirect('');
+    async (req, res) => {
+      // Fetch all surveys where _id matches _user_id
+      const surveys = await Survey.find({ _user: req.user.id })
+        // Exclude recipients field (potentially large data) from query object returned by 'find'
+        .select({ recipients: false });
+      res.send(surveys);
     }
   );
 

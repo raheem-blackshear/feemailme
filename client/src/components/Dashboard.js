@@ -3,8 +3,9 @@
 */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Greeting from './Greeting'
 import { connect } from 'react-redux';
+import Greeting from './Greeting'
+import SurveyList from './surveys/SurveyList';
 
 class Dashboard extends Component {
 
@@ -16,7 +17,13 @@ class Dashboard extends Component {
     // If user is logged in, auth will not be null
     if (this.props.auth) {
       // Render first name
-      return <Greeting name={ this.props.auth.firstName } />
+      // FIXME this looks gross
+      return <div className='card blue accent-4 white-text'>
+          <div className='card-content'>
+              <div className='chip blue lighten-2 white-text right'><Greeting name={ this.props.auth.firstName } /></div>
+              <p className='flow-text center-align'><h4>Survey Dashboard</h4></p>
+            </div>
+          </div>
     }
   }
 
@@ -26,10 +33,8 @@ class Dashboard extends Component {
   render() {
   return (
     <div>
-      <h3>Dashboard</h3>
       { this.renderUserContent() }
-      <p>Click the <em>add</em> button in the bottom right to create a new survey.</p>
-      <p className='red-text'>TODO: additional functionality</p>
+      <SurveyList />
       <div className='fixed-action-btn'>
         <Link
           to='/surveys/new/'
